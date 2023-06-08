@@ -63,11 +63,11 @@
 
 
 
-###2023/05/23(화) 3차 회의 : 화면 기능 상세화
+### 2023/05/23(화) 3차 회의 : 화면 기능 상세화
 
 
 
-###2023/05/24(수) 디자인 완료 - 박예린
+### 2023/05/24(수) 디자인 완료 - 박예린
 
 
 https://www.figma.com/file/VY8sOKxP9m2yISRZsTJ6mQ/%EB%83%89%EC%9E%A5%EA%B3%A0%EB%A5%BC-%EB%B6%80%ED%83%81%ED%95%B4?type=design&node-id=0%3A1&t=zknTZ0jw7bWgv8JP-1
