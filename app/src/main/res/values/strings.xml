@@ -1,3 +1,18 @@
 <resources>
-    <string name="app_name">mocum</string>
+    <string name="app_name">My Application</string>
+    <string name="line1">채소</string>
+    <string name="line2">과일</string>
+    <string name="line3">고기</string>
+    <string name="line4">수산물</string>
+    <string name="line5">음료</string>
+    <string name="line6">주류</string>
+    <string name="line7">조미료</string>
+    <string name="line8">향신료</string>
+    <string name="line9">요리</string>
+    <string name="line10">유제품</string>
+    <string name="line11">빵류</string>
+    <string name="line12">디저트류</string>
+    <string name="line13">견과류</string>
+    <string name="line14">곡물</string>
+    <string name="line15">기타</string>
 </resources>
