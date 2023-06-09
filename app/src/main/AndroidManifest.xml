@@ -9,6 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Mocum">
+
+        <activity
+            android:name=".RecipeRecommend"
+            android:exported="true"
+            android:label="@string/title_activity_recipe_recommend"
+            android:theme="@style/Theme.Mocum.NoActionBar" >
+
+        </activity>
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -19,5 +27,6 @@
             </intent-filter>
         </activity>
     </application>
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
