@@ -73,3 +73,6 @@ https://www.figma.com/file/VY8sOKxP9m2yISRZsTJ6mQ/%EB%83%89%EC%9E%A5%EA%B3%A0%EB
 
 - 카카오 로그인
 - 식제료 관리 화면
+
+##### 2023/06/09(금)
+- 카카오 자동 로그인 완료 cummit
