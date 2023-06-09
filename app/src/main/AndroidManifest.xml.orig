@@ -14,9 +14,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Mocum"
-        android:theme="@style/Theme.MyApplication"
-        tools:targetApi="31">
+<<<<<<< HEAD
+        android:theme="@style/Theme.Mocum">
 
         <activity
             android:name=".RecipeRecommend"
@@ -25,7 +24,9 @@
             android:theme="@style/Theme.Mocum.NoActionBar" >
 
         </activity>
-        
+=======
+        android:theme="@style/Theme.MyApplication"
+        tools:targetApi="31">
 
         <!--로그인 화면(첫화면)-->
         <activity android:name=".LoginActivity"
@@ -37,13 +38,20 @@
         </activity>
 
         <!--재료함 화면-->
+>>>>>>> origin/dev2
         <activity
             android:name=".MainActivity"
             android:exported="true">
-            <!-- <intent-filter>
+            <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter> -->
+            </intent-filter>
         </activity>
+<<<<<<< HEAD
+    </application>
+    <uses-permission android:name="android.permission.INTERNET" />
+
+</manifest>
+=======
 
         <!--로그인 성공 후 프로필 화면-->
         <activity android:name=".ProfileActivity" /> <!--내가 놓친 부분 : SecondActivity를 등록 안 해줌-->
@@ -62,5 +70,5 @@
 
 
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
+>>>>>>> origin/dev2
