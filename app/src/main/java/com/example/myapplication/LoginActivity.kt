@@ -1,6 +1,7 @@
 package com.example.myapplication
 
 
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -10,7 +11,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.kakao.sdk.auth.LoginClient
+import com.kakao.sdk.auth.AuthApiClient
+import com.kakao.sdk.common.model.KakaoSdkError
 import com.kakao.sdk.user.UserApiClient
 import okhttp3.Call
 import okhttp3.FormBody
@@ -27,17 +29,32 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        val sharedPreferences = this@LoginActivity.getSharedPreferences("shared", Context.MODE_PRIVATE)
-
-        val token = sharedPreferences.getString("jwt", null)
-
-        if (token != null) {
-            // 저장된 토큰이 있을 경우, 자동으로 로그인 처리
-            alertToast("성공")
-            performAutoLogin(token)
-        } else {
-            // 저장된 토큰이 없을 경우, 로그인 화면을 보여줌
-            showLoginScreen()
+        if (AuthApiClient.instance.hasToken()) {
+            UserApiClient.instance.accessTokenInfo { _, error ->
+                if (error != null) {
+                    if (error is KakaoSdkError && error.isInvalidTokenError()) {
+                        //토큰 없음 -> 로그인 필요(로그인 화면으로)
+                        val intent = Intent(this, LoginActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
+                    else {
+                        // 토큰 유효하지 않음
+                        Toast.makeText(this, error.toString(),Toast.LENGTH_SHORT).show()
+                    }
+                }
+                else {
+                    //자동로그인 성공! 메인 페이지로
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+                    finish()
+                }
+            }
+        }
+        else {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
         }
 
         UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
@@ -58,62 +75,24 @@ class LoginActivity : AppCompatActivity() {
         val kakao_login_button = findViewById<ImageButton>(R.id.kakao_login_button) // 로그인 버튼
 
         kakao_login_button.setOnClickListener {
-            if (LoginClient.instance.isKakaoTalkLoginAvailable(this)) {
-                LoginClient.instance.loginWithKakaoTalk(this) { token, error ->
-                    if (error != null) {
-                        // 로그인 실패 처리
-                    } else if (token != null) {
-/*
-                        Toast.makeText(this, token.accessToken, Toast.LENGTH_SHORT).show()
-*/
-                        Log.i("AccessToken", token.accessToken)
-                        sendTokenToServer(token.accessToken) // 토큰을 서버로 전송
-                    }
+            // 카카오톡으로 로그인
+            UserApiClient.instance.loginWithKakaoTalk(this) { token, error ->
+                if (error != null) {
+                    // 로그인 실패 처리
+                    Log.e(TAG, "로그인 실패", error)
                 }
-            } else {
-                Toast.makeText(this, "카카오톡 실행 불가", Toast.LENGTH_SHORT).show()
+                else if (token != null) {
+                    // 로그인 성공 처리
+                    Log.i(TAG, "로그인 성공 ${token.accessToken}")
+                    sendTokenToServer(token.accessToken) // 토큰을 서버로 전송
+
+                }
             }
         }
     }
 
-    private fun performAutoLogin(token: String) {
-        if (isValidToken(token)) {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
-        } else {
-            showLoginScreen()
-        }
-    }
-    private fun isValidToken(token: String): Boolean {
-        // 토큰 유효성 검사 로직 구현
-        // 유효한 토큰인 경우 true 반환, 그렇지 않은 경우 false 반환
-        // 서버로 토큰 유효성 검사를 요청하는 API 호출
 
-        // OkHttpClient를 사용하여 HTTP 요청을 보낼 수 있습니다.
-        val client = OkHttpClient()
 
-        // 토큰 유효성 검사를 위한 API 엔드포인트 URL
-        val url = "https://mocum-project-gmck.vercel.app/api/login"
-
-        // 요청을 생성합니다.
-        val request = Request.Builder()
-            .url(url)
-            .addHeader("Authorization", "Bearer $token")
-            .build()
-
-        // 요청을 실행하고 응답을 받습니다.
-        val response = client.newCall(request).execute()
-
-        // 응답을 처리합니다.
-        return response.isSuccessful
-    }
-
-    private fun showLoginScreen() {
-        val intent = Intent(this, LoginActivity::class.java)
-        startActivity(intent)
-        finish()
-    }
 
     private fun alertToast(s:String){
         Toast.makeText(this, s, Toast.LENGTH_SHORT).show()
