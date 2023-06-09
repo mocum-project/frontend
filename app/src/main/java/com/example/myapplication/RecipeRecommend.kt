@@ -1,4 +1,4 @@
-package com.example.mocum
+package com.example.myapplication
 
 import android.graphics.Color
 import android.graphics.Typeface
@@ -16,8 +16,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.marginTop
 import androidx.core.view.setMargins
 import com.bumptech.glide.Glide
-import com.example.viewflipper.R
-import com.example.viewflipper.databinding.ActivityRecipeRecommendBinding
+import com.example.myapplication.databinding.ActivityRecipeRecommendBinding
+
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayout
 import com.google.gson.Gson
