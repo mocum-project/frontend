@@ -71,8 +71,9 @@ https://www.figma.com/file/VY8sOKxP9m2yISRZsTJ6mQ/%EB%83%89%EC%9E%A5%EA%B3%A0%EB
 
 그 동안 작업한 프로젝트 first cummit
 
+-로그인 화면
 - 카카오 로그인 API
-- 식재료 관리 화면
+- 식재료 관리 화면 ( 냉장고, 냉동실, 실온 )
 
 ##### 2023/06/09(금)
 - 카카오 자동 로그인 구현 완료 cummit
