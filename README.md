@@ -76,3 +76,6 @@ https://www.figma.com/file/VY8sOKxP9m2yISRZsTJ6mQ/%EB%83%89%EC%9E%A5%EA%B3%A0%EB
 
 ##### 2023/06/09(금)
 - 카카오 자동 로그인 구현 완료 cummit
+
+##### 2023/06/11(일)
+- 기말 프로젝트 발표 ppt 완성
