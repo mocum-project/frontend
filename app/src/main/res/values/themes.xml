@@ -1,6 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.MyApplication" parent="Theme.AppCompat.DayNight.NoActionBar">
+     <item name="colorPrimaryDark">#e78111</item> <!-- 여기에 원하는 색상을 지정합니다 -->
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>

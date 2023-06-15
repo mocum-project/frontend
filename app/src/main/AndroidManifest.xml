@@ -34,7 +34,7 @@
         <activity android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
-
+                <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -44,7 +44,16 @@
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!--카테고리 화면-->
+        <activity
+            android:name=".CategoriesActivity"
+            android:exported="true">
+            <intent-filter>
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -52,7 +61,8 @@
         <!--로그인 성공 후 프로필 화면-->
         <activity android:name=".ProfileActivity" /> <!--내가 놓친 부분 : SecondActivity를 등록 안 해줌-->
 
-        <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
+        <activity
+            android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -60,9 +70,12 @@
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data
                     android:host="oauth"
-                    android:scheme="kakaoe039f5a5f43adf07815c4fb47bb6c89e" />
+                    android:scheme="039f5a5f43adf07815c4fb47bb6c89e" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".CrudIngredient"
+            android:label="Crud Activity" />
 
 
     </application>

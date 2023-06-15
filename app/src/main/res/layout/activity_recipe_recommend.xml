@@ -12,6 +12,14 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#E55F29"
+            style="@style/ThemeOverlay.MaterialComponents.Toolbar.Primary">
+
+        </androidx.appcompat.widget.Toolbar>
         <TextView
             android:id="@+id/loading"
             android:layout_width="wrap_content"

@@ -1,7 +1,9 @@
 package com.example.myapplication
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -13,6 +15,8 @@ import android.widget.Button
 import android.widget.LinearLayout
 
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.ActionBar
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 
@@ -21,6 +25,7 @@ import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayout
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.kakao.sdk.common.util.Utility
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Headers
@@ -39,26 +44,50 @@ class MainActivity : AppCompatActivity() {
     var categories:List<String> = emptyList()
     var ingredients:List<IngredientsType> = emptyList()
     var currentTab = StorageArea.freezer
+    private var isFirstCreate = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
+        isFirstCreate = true
 
-//        supportActionBar?.setDisplayShowTitleEnabled(false) //툴바 제목 없애기
-        supportActionBar?.setTitle("냉장고를 부탁해")
+        supportActionBar?.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM)
+        supportActionBar?.setCustomView(R.layout.custom_actionbar)
 
         renderTabLayout()
         getDataAndRenderLayout()
 
         binding.recipeBtn.setBackgroundColor(ContextCompat.getColor(this, R.color.carrot))
+
+        binding.recipeBtn.setOnClickListener{
+
+            val intent = Intent(this,RecipeRecommend::class.java)
+            startActivity(intent)
+        }
+
+        binding.plusBtn.setOnClickListener{
+            val intent = Intent(this,CategoriesActivity::class.java)
+
+            startActivity(intent)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(!isFirstCreate){
+            binding.scrollView.removeAllViews()
+            getDataAndRenderLayout()
+        }
+        isFirstCreate = false
     }
 
 
 
     private fun getDataAndRenderLayout(){
         val url = "https://mocum-project-gmck.vercel.app/api/ingredients"
+//        val url = "http://192.168.200.171:3000/api/ingredients"
         val headers = Headers.Builder()
             .add("jwt", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzIiwibmlja25hbWUiOiJ0ZXN0IiwiaWF0IjoxNjg2NTcxNDI1LCJleHAiOjE2ODkxNjM0MjV9.79nry30Eppc4SbeALuRKwrCyCX4KgnodJ7rFl7uhXAY")
             .build()
@@ -87,7 +116,9 @@ class MainActivity : AppCompatActivity() {
             override fun onFailure(call: Call, e: IOException) {
                 // 요청 실패 처리
                 e.printStackTrace()
-                Log.e("error","에러남")
+                runOnUiThread{
+                    Toast.makeText(this@MainActivity, e.toString(), Toast.LENGTH_SHORT).show()
+                }
             }
         })
     }
@@ -258,7 +289,7 @@ class MainActivity : AppCompatActivity() {
                 return wrapper
             }
 
-            fun makeItemButton(text:String): CardView {
+            fun makeItemButton(id:Int, name:String, category: String,count: Int,storageArea: StorageArea,expirationDate: String): CardView {
 
                 val wrapper = CardView(this)
                 val wrapperLayoutParams = LinearLayout.LayoutParams(
@@ -275,20 +306,33 @@ class MainActivity : AppCompatActivity() {
                     // 페이지 이동
                 }
 
-                val textView = TextView(this)
+                val btn = Button(this)
                 val textViewLayoutParams = LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                 )
-                textView.layoutParams = textViewLayoutParams
-                textView.setPadding(pxToDp(10),pxToDp(5),pxToDp(10),pxToDp(5))
-                textView.text = text
-                textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,12f)
-                textView.setTypeface(null,Typeface.BOLD)
-                textView.setTextColor(ContextCompat.getColor(this, R.color.black))
-                textView.setBackgroundColor(Color.parseColor("#f5f5f5"))
+                btn.layoutParams = textViewLayoutParams
+                btn.setPadding(pxToDp(10),pxToDp(5),pxToDp(10),pxToDp(5))
+                btn.text = name
+                btn.setTextSize(TypedValue.COMPLEX_UNIT_SP,12f)
+                btn.setTypeface(null,Typeface.BOLD)
+                btn.setTextColor(ContextCompat.getColor(this, R.color.black))
+                btn.setBackgroundColor(Color.parseColor("#f5f5f5"))
 
-                wrapper.addView(textView)
+                btn.setOnClickListener{
+                    isFirstCreate = false
+                    val intent = Intent(this, CrudIngredient::class.java)
+                    intent.putExtra("mode", "edit")
+                    intent.putExtra("id", id.toString())
+                    intent.putExtra("name", name)
+                    intent.putExtra("category", category)
+                    intent.putExtra("count", count.toString())
+                    intent.putExtra("storageArea", change(storageArea))
+                    intent.putExtra("expirationDate", expirationDate)
+                    startActivity(intent)
+                }
+
+                wrapper.addView(btn)
                 return wrapper
             }
 
@@ -305,7 +349,7 @@ class MainActivity : AppCompatActivity() {
                     a = "-"
                 }
                 s.addView(makeItemDate("D${a}${ abs(dayDifference) }"))
-                s.addView(makeItemButton(it.name))
+                s.addView(makeItemButton(it.id, it.name,it.category,it.count,it.storageArea,it.expirationDate))
                 itemsLayout.addView(s)
             }
 
@@ -371,3 +415,12 @@ enum class StorageArea(val displayName:String){
     roomTemp("실온")
 }
 
+fun change(storageArea: StorageArea):String{
+    if (storageArea == StorageArea.freezer){
+        return "freeze"
+    }else if (storageArea == StorageArea.fridge){
+        return "fridge"
+    }else{
+        return "roomTemp"
+    }
+}
