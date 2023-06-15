@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.kakao.sdk.auth.LoginClient
+import com.kakao.sdk.common.KakaoSdk
+import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
 import okhttp3.Call
 import okhttp3.FormBody
@@ -37,12 +39,14 @@ class LoginActivity : AppCompatActivity() {
             performAutoLogin(token)
         } else {
             // 저장된 토큰이 없을 경우, 로그인 화면을 보여줌
-            showLoginScreen()
+//            showLoginScreen()
+
         }
 
         UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
             if (error != null) {
-                Toast.makeText(this, "토큰 정보 보기 실패", Toast.LENGTH_SHORT).show()
+
+//                Toast.makeText(this, "토큰 정보 보기 실패", Toast.LENGTH_SHORT).show()
             }
             else if (tokenInfo != null) {
                 Toast.makeText(this, "토큰 정보 보기 성공", Toast.LENGTH_SHORT).show()
@@ -51,16 +55,26 @@ class LoginActivity : AppCompatActivity() {
                 finish()
             }
         }
-        /*        // 해쉬키 찾기
-                val keyHash = Utility.getKeyHash(this)
-                Log.d("Hash", keyHash)*/
+//          // 해쉬키 찾기
+//        val keyHash = Utility.getKeyHash(this)
+//        Log.d("Hash", keyHash)
 
         val kakao_login_button = findViewById<ImageButton>(R.id.kakao_login_button) // 로그인 버튼
 
+        // 039f5a5f43adf07815c4fb47bb6c89e
+        KakaoSdk.init(this,"039f5a5f43adf07815c4fb47bb6c89e")
+        val keyHash = Utility.getKeyHash(this)
+        Log.e("Hash", keyHash)
+//        Toast.makeText(this, keyHash, Toast.LENGTH_SHORT).show()
+
         kakao_login_button.setOnClickListener {
+            val intent = Intent(this,MainActivity::class.java)
+            startActivity(intent)
+            return@setOnClickListener
             if (LoginClient.instance.isKakaoTalkLoginAvailable(this)) {
                 LoginClient.instance.loginWithKakaoTalk(this) { token, error ->
                     if (error != null) {
+                        Toast.makeText(this, error.toString(), Toast.LENGTH_SHORT).show()
                         // 로그인 실패 처리
                     } else if (token != null) {
 /*

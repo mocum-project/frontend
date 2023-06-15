@@ -1,7 +1,9 @@
 package com.example.myapplication
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +13,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.ActionBar
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.core.view.marginTop
@@ -35,23 +38,32 @@ import java.io.IOException
 
 class RecipeRecommend : AppCompatActivity() {
     lateinit var binding: ActivityRecipeRecommendBinding
+    var startIndex = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRecipeRecommendBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM)
+        supportActionBar?.setCustomView(R.layout.custom_actionbar)
         removeLoading()
-        getRecipes(0) { recipes ->
+        getRecipes{ recipes ->
             addRecipesLayout(recipes)
         }
 
         binding.moreBtn.setOnClickListener{
-            getRecipes(0) { recipes ->
+            getRecipes{ recipes ->
                 addRecipesLayout(recipes)
             }
         }
     }
 
-
+    private fun showYoutube(url:String){
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        intent.setPackage("com.android.chrome")
+        startActivity(intent)
+    }
 
     private fun addRecipesLayout(recipes:List<RecipeType>){
         recipes.forEach{ recipe ->
@@ -78,6 +90,9 @@ class RecipeRecommend : AppCompatActivity() {
                 Glide.with(this)
                     .load(recipe.youtube.thumbnailUrl)
                     .into(view)
+                view.setOnClickListener{
+                    showYoutube(recipe.youtube.videoUrl)
+                }
                 view
             }
             val videoTitle:TextView = run{
@@ -216,13 +231,14 @@ class RecipeRecommend : AppCompatActivity() {
         }
     }
 
-    private fun getRecipes(startIndex:Int, renderRecipes: (List<RecipeType>) -> Unit){
+    private fun getRecipes( renderRecipes: (List<RecipeType>) -> Unit){
         runOnUiThread{
             binding.main.removeView(binding.moreBtnWrapper)
             binding.main.addView(binding.loading)
         }
 //        val url = "https://mocum-project-gmck.vercel.app/api/recipe?startIndex=$startIndex"
-        val url = "https://mocum-project-gmck.vercel.app/api/dev/recipeData" // 더미데이터
+        val url = "http://192.168.200.171:3000/api/recipe?startIndex=$startIndex"
+//        val url = "https://mocum-project-gmck.vercel.app/api/dev/recipeData" // 더미데이터
         val headers = Headers.Builder()
             .add("jwt", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzIiwibmlja25hbWUiOiJ0ZXN0IiwiaWF0IjoxNjg2MTQ0Mzg5LCJleHAiOjE2ODg3MzYzODl9.SPmt9QV5oNcV9n6QR3JUv1YmlDOowbXTT3jW9FH25OI")
             .build()
@@ -238,6 +254,7 @@ class RecipeRecommend : AppCompatActivity() {
                     val responseBody = response.body?.string()
                     val recipes = Gson().fromJson<ResponseType<RecipeResponseType>>(responseBody,object:TypeToken<ResponseType<RecipeResponseType>>() {}.type).result.recipes
                     Log.e("recipes",recipes.toString())
+                    startIndex += 5
                     runOnUiThread{
                         removeLoading()
                         renderRecipes(recipes)

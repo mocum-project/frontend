@@ -34,7 +34,7 @@
         <activity android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
-
+                <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -44,7 +44,7 @@
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -60,7 +60,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data
                     android:host="oauth"
-                    android:scheme="kakaoe039f5a5f43adf07815c4fb47bb6c89e" />
+                    android:scheme="039f5a5f43adf07815c4fb47bb6c89e" />
             </intent-filter>
         </activity>
 
