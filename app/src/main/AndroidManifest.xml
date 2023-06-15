@@ -63,7 +63,10 @@
                     android:scheme="039f5a5f43adf07815c4fb47bb6c89e" />
             </intent-filter>
         </activity>
-
+        <activity
+            android:name=".NextActivity"
+            android:label="Next Activity" />
+        </activity>
 
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
