@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/item1"
+        android:title="item1"/>
+    <item
+        android:id="@+id/item2"
+        android:title="item2"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/item3"
+        android:title="item3"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/menu_search"
+        android:title="Search"
+        app:showAsAction="ifRoom"
+        app:actionViewClass="android.widget.SearchView" />
+    <item
+        android:id="@+id/category_vegetable"
+        android:title="채소" />
+    <item
+        android:id="@+id/category_fruit"
+        android:title="과일" />
+    <item
+        android:id="@+id/category_meat"
+        android:title="고기" />
+    <item
+        android:id="@+id/category_seafood"
+        android:title="수산물" />
+    <item
+        android:id="@+id/category_Beverage"
+        android:title="음료" />
+    <item
+        android:id="@+id/category_alcohol"
+        android:title="주류" />
+    <item
+        android:id="@+id/category_seasoning"
+        android:title="조미료" />
+    <item
+        android:id="@+id/category_spice"
+        android:title="향신료" />
+    <item
+        android:id="@+id/category_dish"
+        android:title="요리" />
+    <item
+        android:id="@+id/category_milkProduct"
+        android:title="유제품" />
+    <item
+        android:id="@+id/category_bakery"
+        android:title="빵류" />
+    <item
+        android:id="@+id/category_dessert"
+        android:title="디저트류" />
+    <item
+        android:id="@+id/category_nuts"
+        android:title="견과류" />
+    <item
+        android:id="@+id/category_grains"
+        android:title="곡물" />
+    <item
+        android:id="@+id/category_other2"
+        android:title="기타" />
+</menu>

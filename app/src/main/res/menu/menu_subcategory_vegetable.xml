@@ -1,0 +1,107 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/subcategory_Eggplant"
+        android:title="가지" />
+    <item
+        android:id="@+id/subcategory_Potato"
+        android:title="감자" />
+    <item
+        android:id="@+id/subcategory_SweetPotato"
+        android:title="고구마" />
+    <item
+        android:id="@+id/subcategory_RedPepper"
+        android:title="고추" />
+    <item
+        android:id="@+id/subcategory_SesameLeaf"
+        android:title="깻잎" />
+    <item
+        android:id="@+id/subcategory_oysterMushroom"
+        android:title="느타리버섯" />
+    <item
+        android:id="@+id/subcategory_SweetPumpkin"
+        android:title="단호박" />
+    <item
+        android:id="@+id/subcategory_carrot"
+        android:title="당근" />
+    <item
+        android:id="@+id/subcategory_Leek"
+        android:title="대파" />
+    <item
+        android:id="@+id/subcategory_daikon"
+        android:title="무" />
+    <item
+        android:id="@+id/subcategory_Cabbage1"
+        android:title="배추" />
+    <item
+        android:id="@+id/subcategory_Mushroom"
+        android:title="버섯" />
+    <item
+        android:id="@+id/subcategory_chives"
+        android:title="부추" />
+    <item
+        android:id="@+id/subcategory_broccoli"
+        android:title="브로콜리" />
+    <item
+        android:id="@+id/subcategory_lettuce"
+        android:title="상추" />
+    <item
+        android:id="@+id/subcategory_KingOysterMushroom"
+        android:title="새송이버섯" />
+    <item
+        android:id="@+id/subcategory_bourgeon"
+        android:title="새싹채소" />
+    <item
+        android:id="@+id/subcategory_salary"
+        android:title="샐러리" />
+    <item
+        android:id="@+id/subcategory_spinach"
+        android:title="시금치" />
+    <item
+        android:id="@+id/subcategory_youngPumkin"
+        android:title="애호박" />
+    <item
+        android:id="@+id/subcategory_cabbage"
+        android:title="양배추" />
+    <item
+        android:id="@+id/subcategory_lettuce1"
+        android:title="양상추" />
+    <item
+        android:id="@+id/subcategory_onion"
+        android:title="양파" />
+    <item
+        android:id="@+id/subcategory_lotusroot"
+        android:title="연근" />
+    <item
+        android:id="@+id/subcategory_cucumber"
+        android:title="오이" />
+    <item
+        android:id="@+id/subcategory_corn"
+        android:title="옥수수" />
+    <item
+        android:id="@+id/subcategory_burdock"
+        android:title="우엉" />
+    <item
+        android:id="@+id/subcategory_pakChoi"
+        android:title="청경채" />
+    <item
+        android:id="@+id/subcategory_cheongyangRedPepper"
+        android:title="청양고추" />
+    <item
+        android:id="@+id/subcategory_kale"
+        android:title="케일" />
+    <item
+        android:id="@+id/subcategory_beanSprouts"
+        android:title="콩나물" />
+    <item
+        android:id="@+id/subcategory_enokiMushroom"
+        android:title="팽이버섯" />
+    <item
+        android:id="@+id/subcategory_shiitakeMushroom"
+        android:title="표고버섯" />
+    <item
+        android:id="@+id/subcategory_bellPepper"
+        android:title="피망" />
+    <item
+        android:id="@+id/subcategory_pumkin"
+        android:title="호박" />
+</menu>

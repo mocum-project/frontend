@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_freezer"
+        android:title="냉동실" />
+    <item
+        android:id="@+id/menu_refrigerator"
+        android:title="냉장실" />
+    <item
+        android:id="@+id/menu_room_temperature"
+        android:title="실온" />
+</menu>

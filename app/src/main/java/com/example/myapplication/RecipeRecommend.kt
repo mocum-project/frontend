@@ -236,8 +236,7 @@ class RecipeRecommend : AppCompatActivity() {
             binding.main.removeView(binding.moreBtnWrapper)
             binding.main.addView(binding.loading)
         }
-//        val url = "https://mocum-project-gmck.vercel.app/api/recipe?startIndex=$startIndex"
-        val url = "http://192.168.200.171:3000/api/recipe?startIndex=$startIndex"
+        val url = "https://mocum-project-gmck.vercel.app/api/recipe?startIndex=$startIndex"
 //        val url = "https://mocum-project-gmck.vercel.app/api/dev/recipeData" // 더미데이터
         val headers = Headers.Builder()
             .add("jwt", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzIiwibmlja25hbWUiOiJ0ZXN0IiwiaWF0IjoxNjg2MTQ0Mzg5LCJleHAiOjE2ODg3MzYzODl9.SPmt9QV5oNcV9n6QR3JUv1YmlDOowbXTT3jW9FH25OI")

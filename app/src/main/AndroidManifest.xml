@@ -48,11 +48,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!--카테고리 화면-->
+        <activity
+            android:name=".CategoriesActivity"
+            android:exported="true">
+            <intent-filter>
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <!--로그인 성공 후 프로필 화면-->
         <activity android:name=".ProfileActivity" /> <!--내가 놓친 부분 : SecondActivity를 등록 안 해줌-->
 
-        <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
+        <activity
+            android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -64,9 +74,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".NextActivity"
-            android:label="Next Activity" />
-        </activity>
+            android:name=".CrudIngredient"
+            android:label="Crud Activity" />
+
 
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
